@@ -1,0 +1,3 @@
+﻿  reference.cpp
+E:\C++\CppLearn\11.Reference\reference.cpp(14): warning C4172: 返回局部变量或临时变量的地址: a
+  11.Reference.vcxproj -> E:\C++\CppLearn\Debug\11.Reference.exe
