@@ -94,6 +94,54 @@ void test3() {
 	}
 }
 
+void printVector(vector<int>& v) {
+	for (vector<int>::iterator it = v.begin(); it != v.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+
+// vector 构造函数
+void test4() {
+
+	vector<int> v1;
+	for (size_t i = 0; i < 10; i++)
+	{
+		v1.push_back(i);
+	}
+	printVector(v1);
+
+	vector<int> v2(v1.begin(), v1.end());
+	printVector(v2);
+
+	vector<int>v3(5, 20);
+	printVector(v3);
+
+	vector<int>v4(v3);
+	printVector(v4);
+}
+
+// 赋值
+void test5() {
+	vector<int> v1;
+	for (int i = 0; i < 10; i++)
+	{
+		v1.push_back(i);
+	}
+
+	vector<int> v2;
+	v2 = v1;
+	printVector(v2);
+
+	vector<int> v3;
+	v3.assign(v2.begin(),v2.end());
+	printVector(v3);
+
+	vector<int> v4;
+	v4.assign(5,30);
+	printVector(v4);
+}
 
 int main() {
 
@@ -128,5 +176,8 @@ int main() {
 
 	test3();
 
+	test4();
+
+	test5();
 	return 1;
 }
