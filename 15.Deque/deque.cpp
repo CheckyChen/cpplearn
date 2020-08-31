@@ -1,5 +1,7 @@
 #include <iostream>
-#include<deque>
+#include <deque>
+#include <algorithm>
+
 using namespace std;
 
 // 功能：双端数组，可以对头端进行删除操作
@@ -132,7 +134,48 @@ void test5() {
 
 	//d1.erase(d1.begin(),d1.end());
 	d1.clear();// 清空
-	printDeque(d1); 
+	printDeque(d1);
+}
+
+// 数据存取
+void test6() {
+	deque<int>d;
+	d.push_back(10);
+	d.push_back(20);
+	d.push_back(30);
+	d.push_front(100);
+	d.push_front(200);
+	d.push_front(300);
+
+	for (size_t i = 0; i < d.size(); i++)
+	{
+		cout << d[i] << " ";
+	}
+	cout << endl; // 300 200 100 10 20 30
+
+	for (size_t i = 0; i < d.size(); i++)
+	{
+		cout << d.at(i) << " ";
+	}
+	cout << endl;// 300 200 100 10 20 30
+
+	cout << "第一个元素：" << d.front() << endl; //300
+	cout << "最后一个元素：" << d.back() << endl; //30
+}
+
+// 排序
+void test7() {
+	deque<int>d;
+	d.push_back(10);
+	d.push_back(20);
+	d.push_back(30);
+	d.push_front(100);
+	d.push_front(200);
+	d.push_front(300);
+	printDeque(d);// 300 200 100 10 20 30
+
+	sort(d.begin(),d.end());
+	printDeque(d); // 10 20 30 100 200 300
 }
 
 int main() {
@@ -141,7 +184,9 @@ int main() {
 	//test2();
 	//test3();
 	//test4();
-	test5();
+	//test5();
+	//test6();
+	test7();
 
 	return 1;
 }
