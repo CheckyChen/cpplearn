@@ -123,11 +123,65 @@ void test4() {
 	printList(l1);//2000 20 10 40 10000 10000 10000
 
 	// 删除数组中所有10000的元素
-	l1.remove(10000); 
+	l1.remove(10000);
 	printList(l1);//2000 20 10 40
 
 	// 清空
 	l1.clear();
+}
+
+// 数据的存取
+void test5() {
+	list<int>l1;
+	l1.push_back(10);
+	l1.push_back(20);
+	l1.push_back(30);
+	l1.push_back(40);
+
+	//l1[0],l1.at(0),不支持 [] 和 at 方式访问list容器中的元素
+	//原因是list本质是双向链表，不是用连续线性空间存储数据，迭代器也是不支持随机访问的
+
+	cout << "第一个元素：" << l1.front() << endl;
+	cout << "最后一个元素：" << l1.back() << endl;
+
+	// 迭代器不支持随机访问
+	list<int>::const_iterator it = l1.begin();
+
+	//支持双向
+	it++;
+	it--;
+	// 不支持随机访问
+	// it = it + 2;	
+}
+
+bool myCompara(int v1, int v2) {
+	return v1 > v2;
+}
+
+// 翻转和排序
+void test6() {
+	list<int>l1;
+	l1.push_back(50);
+	l1.push_back(20);
+	l1.push_back(30);
+	l1.push_back(10);
+	l1.push_back(40);
+
+	cout << "翻转前：";
+	printList(l1);//50 20 30 10 40
+	cout << "翻转后：";
+	l1.reverse();
+	printList(l1);//40 10 30 20 50
+
+	l1.sort();//10 20 30 40 50
+	cout << "排序后：";// 默认升序
+	printList(l1);
+
+	// 降序排序，传入排序规则的回调函数
+	l1.sort(myCompara);
+	cout << "降序排序：";
+	printList(l1);//50 40 30 20 10
+
 }
 
 int main() {
@@ -135,7 +189,9 @@ int main() {
 	//test1();
 	//test2();
 	//test3();
-	test4();
+	//test4();
+
+	test6();
 
 	return 1;
 }
