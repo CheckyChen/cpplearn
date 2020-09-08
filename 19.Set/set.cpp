@@ -109,11 +109,70 @@ void test5() {
 
 // 对组的创建
 void test6() {
-	pair<string, int>p1("checky",29);
+	pair<string, int>p1("checky", 29);
 	cout << p1.first << " : " << p1.second << endl; // checky : 29
 
-	pair<string, int>p2 = make_pair("tom",28);
+	pair<string, int>p2 = make_pair("tom", 28);
 	cout << p2.first << " : " << p2.second << endl;	// tom : 28
+}
+
+class MyCompare {
+public:
+	bool operator()(int v1, int v2) const {
+		return v1 > v2;
+	}
+};
+// 排序
+void test7() {
+	// 在定义的时候传入一个仿函数，从大到小排序
+	set<int, MyCompare>s;
+	s.insert(30);
+	s.insert(10);
+	s.insert(20);
+	s.insert(40);
+
+	for (set<int, MyCompare>::iterator it = s.begin(); it != s.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+
+class Person {
+public:
+	string name;
+	int age;
+	Person(string name, int age) {
+		this->name = name;
+		this->age = age;
+	}
+};
+
+class PersonCompare {
+public:
+	bool operator()(const Person& p1, const Person& p2)const {
+		return p1.age > p2.age;
+	}
+};
+
+void test8() {
+
+	set<Person, PersonCompare> s;
+	Person p1("france", 20);
+	Person p2("grace", 29);
+	Person p3("yello", 27);
+	Person p4("gray", 25);
+	Person p5("kobe", 23);
+
+	s.insert(p1);
+	s.insert(p2);
+	s.insert(p3);
+	s.insert(p4);
+	s.insert(p5);
+
+	for (set<Person, PersonCompare>::iterator it = s.begin(); it != s.end(); it++) {
+		cout << " name :" << it->name << " age :" << it->age << endl;
+	}
 }
 
 int main() {
@@ -123,5 +182,8 @@ int main() {
 	test3();
 	test4();
 	test6();
+	test7();
+
+	test8();
 	return 1;
 }
