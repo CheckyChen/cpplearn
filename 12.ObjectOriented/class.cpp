@@ -32,10 +32,14 @@ struct S1 {
 // 构造函数和析构函数
 class Person {
 
-	int age;
-	string name;
+
 
 public:
+
+	int age;
+	string name;
+	mutable string hobby;
+
 	// 构造函数
 	// ①没有返回值，不用void
 	// ②函数名和类名相同，可以发生重载
@@ -63,7 +67,44 @@ public:
 	~Person() {
 		cout << "Person 析构函数" << endl;
 	}
+
+	// const 修饰成员函数
+	// 常函数：
+	// 1.成员函数后加const后我们称为这个函数为常函数
+	// 2.常函数内不可修改成员属性
+	// 3.成员属性声明时加上关键字mutable后，在常函数中依然可以修改
+
+	// this 指针的本质是是指针常量，指针的指向是不可以修改的
+	// const Person * const this
+	// 在成员函数后面加上const，修饰的是this指向，让指针指向的值也是不可以修改的
+	void getAge() const {
+		// this->age = 100; 报错，表达式左值必须是可修改的值
+		cout << "Person age: " << this->age << endl;
+	}
+
+	void setHobby(string hobby) const {
+		// 不会报错，hobby被mutable修饰了
+		this->hobby = hobby;
+		cout << "Person hobby: " << this->hobby << endl;
+	}
+
+	string getName() {
+		cout << "Person name: " << this->name << endl;
+	}
+
 };
+
+// 常对象
+void test6() {
+	const Person p;
+	//p.age = 20;// 报错，表达式必须是可修改的左值
+	p.hobby = "basketball";// 被mutable修饰的属性常对象可以修改
+
+	// 常对象只能调用常函数
+	p.getAge();// 可以调用常函数
+
+	//p.getName();// 报错，对象含有与成员函数 Person::getName 不兼容的限定修饰符
+}
 
 class Car {
 	// 默认会创建三个函数
@@ -105,6 +146,51 @@ void test() {
 	Person p22 = Person(p11);
 }
 
+// 友元
+// 1.全局函数作为友元
+// 2.类作为友元
+
+class Building {
+	// 友元函数
+	friend void goodFriend(Building* building);
+
+	friend class GoodFriend;
+
+public:
+	string m_sittingRoom;
+	Building()
+	{
+		m_sittingRoom = "客厅";
+		m_bedRoom = "卧室";
+	}
+private:
+	string m_bedRoom;
+};
+
+// 全局函数
+void goodFriend(Building* building) {
+	cout << "好朋友正则访问 " << building->m_sittingRoom << endl;
+	cout << "好朋友正则访问 " << building->m_bedRoom << endl;// 可以访问类的私有成员
+}
+
+// 类作为友元
+class GoodFriend {
+public:
+	Building* building;
+
+	void visit() {
+
+		cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
+		// 可以访问Building的私有成员，因为GoodFriend被修饰为 Building 类的友元了
+		cout << "好朋友类正在访问 " << building->m_bedRoom << endl;
+	}
+
+};
+
+// 类外写构造函数
+GoodFriend::GoodFriend() {
+	building = new Building;
+}
 
 int main() {
 
