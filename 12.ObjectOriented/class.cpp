@@ -149,12 +149,15 @@ void test() {
 // 友元
 // 1.全局函数作为友元
 // 2.类作为友元
+// 3.成员函数作为友元
 
 class Building {
-	// 友元函数
+	// 全局函数作为友元
 	friend void goodFriend(Building* building);
 
+	// 类友元
 	friend class GoodFriend;
+
 
 public:
 	string m_sittingRoom;
@@ -178,6 +181,10 @@ class GoodFriend {
 public:
 	Building* building;
 
+	GoodFriend() {
+		building = new Building;
+	}
+
 	void visit() {
 
 		cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
@@ -187,9 +194,58 @@ public:
 
 };
 
-// 类外写构造函数
-GoodFriend::GoodFriend() {
-	building = new Building;
+
+class Building2;
+class GoodFriend2 {
+
+	Building2* building;
+
+public:
+
+	void visit();
+
+	void visit1()
+	{
+		cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
+	}
+
+	void visit3(Building2& building2);
+};
+
+class Building2 {
+
+	friend void GoodFriend2::visit();
+	friend void GoodFriend2::visit3(Building2& building2);
+
+public:
+	Building2()
+	{
+		m_sittingRoom = "客厅";
+		m_bedRoom = "卧室";
+	}
+	string m_sittingRoom;
+private:
+	string m_bedRoom;
+};
+
+
+GoodFriend2::GoodFriend2()
+{
+	building = new Building2;
+}
+
+void GoodFriend2::visit()
+{
+	cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
+	// 可以访问Building的私有成员，因为GoodFriend2::visit()被修饰为 Building2 类的友元函数
+	cout << "好朋友类正在访问 " << building->m_bedRoom << endl;
+}
+
+void GoodFriend2::visit3(Building2& building2)
+{
+	cout << "好朋友类正在访问 " << building2.m_sittingRoom << endl;
+	// 可以访问Building的私有成员，因为GoodFriend2::visit()被修饰为 Building2 类的友元函数
+	cout << "好朋友类正在访问 " << building2.m_bedRoom << endl;
 }
 
 int main() {
