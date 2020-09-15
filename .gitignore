@@ -1,0 +1,13 @@
+*.db
+*.pdb
+*.log
+*.tlog
+*.user
+*.filters
+*.exe
+*.ilk
+*.idb
+*.obj
+*/Debug/*
+Debug/*
+.vs/*
