@@ -36,7 +36,7 @@ class Person {
 
 public:
 
-	int age;
+	int age = 20;
 	string name;
 	mutable string hobby;
 
@@ -207,7 +207,7 @@ void test8() {
 class Building2;
 class GoodFriend2 {
 
-public:	
+public:
 
 	void visit(Building2& building);
 
@@ -248,24 +248,24 @@ void test9() {
 }
 
 
-int main() {
-
-	Circle c1;
-	c1.r = 20;
-	cout << "周长：" << c1.getPerimeter() << endl;
-
-	C1 c;
-	//c.p1 = 10;// 类外时访问不到的，因为是私有权限
-
-	S1 s;
-	s.p1 = 200;// 能访问到，因为默是公共权限
-
-	test();
-
-	test7();
-	test8();
-	test9();
-}
+//int main() {
+//
+//	Circle c1;
+//	c1.r = 20;
+//	cout << "周长：" << c1.getPerimeter() << endl;
+//
+//	C1 c;
+//	//c.p1 = 10;// 类外时访问不到的，因为是私有权限
+//
+//	S1 s;
+//	s.p1 = 200;// 能访问到，因为默是公共权限
+//
+//	test();
+//
+//	test7();
+//	test8();
+//	test9();
+//}
 
 // 深拷贝、浅拷贝
 // 深拷贝：在堆区重新申请空间，进行拷贝操作，这种拷贝的方式源对象如果被销毁了，不影响新的对象的值
