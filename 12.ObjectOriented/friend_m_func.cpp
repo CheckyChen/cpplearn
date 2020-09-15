@@ -9,6 +9,7 @@ public:
     void set_show(int x, A& a);             //该函数是类A的友元函数
 };
 
+
 class A
 {
 public:
@@ -18,18 +19,20 @@ private:
     void show() { cout << data << endl; }
 };
 
+
 void B::set_show(int x, A& a)       //只有在定义类A后才能定义该函数，毕竟，它被设为友元是为了访问类A的成员
 {
     a.data = x;
     cout << a.data << endl;
 }
 
-int main(void)
-{
-    class A a;
-    class B b;
 
-    b.set_show(1, a);
-
-    return 0;
-}
+//int main(void)
+//{
+//    class A a;
+//    class B b;
+//
+//    b.set_show(1, a);
+//
+//    return 0;
+//}

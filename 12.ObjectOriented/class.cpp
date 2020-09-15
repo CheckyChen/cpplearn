@@ -172,8 +172,13 @@ private:
 
 // 全局函数
 void goodFriend(Building* building) {
-	cout << "好朋友正则访问 " << building->m_sittingRoom << endl;
-	cout << "好朋友正则访问 " << building->m_bedRoom << endl;// 可以访问类的私有成员
+	cout << "好朋友函数正在访问 " << building->m_sittingRoom << endl;
+	cout << "好朋友函数正在访问 " << building->m_bedRoom << endl;// 可以访问类的私有成员
+}
+
+void test7() {
+	Building building;
+	goodFriend(&building);
 }
 
 // 类作为友元
@@ -191,30 +196,27 @@ public:
 		// 可以访问Building的私有成员，因为GoodFriend被修饰为 Building 类的友元了
 		cout << "好朋友类正在访问 " << building->m_bedRoom << endl;
 	}
-
 };
 
+void test8() {
+	GoodFriend gf;
+	gf.visit();
+}
 
+// 成员函数作为友元
 class Building2;
 class GoodFriend2 {
 
-	Building2* building;
+public:	
 
-public:
-
-	void visit();
-
-	void visit1()
-	{
-		cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
-	}
+	void visit(Building2& building);
 
 	void visit3(Building2& building2);
 };
 
+
 class Building2 {
 
-	friend void GoodFriend2::visit();
 	friend void GoodFriend2::visit3(Building2& building2);
 
 public:
@@ -228,25 +230,23 @@ private:
 	string m_bedRoom;
 };
 
-
-GoodFriend2::GoodFriend2()
-{
-	building = new Building2;
+void GoodFriend2::visit3(Building2& building2) {
+	cout << "好朋友类成员函数visit3正在访问 " << building2.m_bedRoom << endl;
 }
 
-void GoodFriend2::visit()
-{
-	cout << "好朋友类正在访问 " << building->m_sittingRoom << endl;
-	// 可以访问Building的私有成员，因为GoodFriend2::visit()被修饰为 Building2 类的友元函数
-	cout << "好朋友类正在访问 " << building->m_bedRoom << endl;
+void GoodFriend2::visit(Building2& building2) {
+	cout << "好朋友类成员函数visit正在访问 " << building2.m_sittingRoom << endl;
 }
 
-void GoodFriend2::visit3(Building2& building2)
-{
-	cout << "好朋友类正在访问 " << building2.m_sittingRoom << endl;
-	// 可以访问Building的私有成员，因为GoodFriend2::visit()被修饰为 Building2 类的友元函数
-	cout << "好朋友类正在访问 " << building2.m_bedRoom << endl;
+void test9() {
+
+	Building2 building;
+	GoodFriend2 friend2;
+
+	friend2.visit3(building);
+	friend2.visit(building);
 }
+
 
 int main() {
 
@@ -261,6 +261,10 @@ int main() {
 	s.p1 = 200;// 能访问到，因为默是公共权限
 
 	test();
+
+	test7();
+	test8();
+	test9();
 }
 
 // 深拷贝、浅拷贝
