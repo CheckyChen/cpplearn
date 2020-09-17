@@ -76,12 +76,57 @@ void leftmove_test() {
 	cout << p << endl;
 }
 
+// 重载递增运算符
+class MyInteger {
+	friend ostream& operator<<(ostream& cout, MyInteger integer);
+public:
+	MyInteger()
+	{
+		m_A = 0;
+	}
+
+	// 重载前置++运算符
+	MyInteger& operator++() {
+		m_A++;
+		return *this;
+	}
+
+	// 重载后置++运算符
+	MyInteger operator++(int) {
+		MyInteger tmp = *this;
+		m_A++;
+		return tmp;
+	}
+private:
+	int m_A;
+};
+
+ostream& operator<<(ostream& out, MyInteger integer) {
+	out << integer.m_A;
+	return cout;
+}
+
+void pre_incream_test() {
+	MyInteger myInteger;
+	cout << ++myInteger << endl; // 1
+}
+
+void post_incream_test() {
+	MyInteger myInteger;
+	cout << myInteger++ << endl; // 0
+	cout << myInteger << endl; // 1
+}
+
 
 int main() {
 
-	plus_test1();
+	/*plus_test1();
 
-	leftmove_test();
+	leftmove_test();*/
+
+	pre_incream_test();
+
+	post_incream_test();
 
 	return 1;
 }
