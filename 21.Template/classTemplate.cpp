@@ -74,10 +74,86 @@ void class_tmplate_test2() {
 	// tmp.print2();
 }
 
+
+// 类模板与继承
+template<class T1>
+class Base {
+public:
+	Base()
+	{
+
+	}
+	T1 t;
+};
+
+// 继承时指定类型
+class Son :public Base<int> {
+public:
+	Son()
+	{
+		cout << "T1的数据类型：" << typeid(t).name() << endl;
+	}
+
+	void print() {
+		cout << "print()" << endl;
+	}
+};
+
+// 子类也提供类模板列表
+template<class T1, class T2>
+class Son2 :public Base<T2> {
+public:
+	Son2()
+	{
+		cout << "T1的数据类型：" << typeid(T1).name() << endl;
+		cout << "T2的数据类型：" << typeid(T2).name() << endl;
+	}
+	T1 t1;
+};
+
+void class_tmplate_test3() {
+
+	Son s1;
+
+	Son2<char, int> s2;
+}
+
+// 类模板成员函数类外实现
+template<class T1, class T2>
+class BaseClass {
+
+public:
+	BaseClass(T1 t1, T2 t2);
+	void print();
+
+	T1 name;
+	T2 age;
+};
+
+// 需要指定类模板的参数列表
+template<class T1, class T2>
+BaseClass<T1, T2>::BaseClass(T1 t1, T2 t2) {
+	this->name = t1;
+	this->age = t2;
+}
+
+template<class T1, class T2>
+void BaseClass<T1, T2>::print() {
+	cout << "name = " << this->name << " ,age = " << this->age << endl;
+}
+
+void class_template_test4() {
+	BaseClass<string, int> base("frank",22);
+	base.print(); // name = frank ,age = 22
+}
+
+
 int main() {
+
 	//class_tmplate_test();
 	//class_tmplate_test1();
-	
-	class_tmplate_test2(); 
+	//class_tmplate_test2();
+	//class_tmplate_test3();
+	class_template_test4();
 	return 1;
 }
