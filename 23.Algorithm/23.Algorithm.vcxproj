@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="find.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="traverse.cpp" />
   </ItemGroup>
