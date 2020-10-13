@@ -99,11 +99,11 @@ bool ignore_case_comp(char c1, char c2) {
 }
 
 void find_first_of_test() {
-	vector<char>v = {'a','b','c','A','B','C'};
+	vector<char>v = { 'a','b','c','A','B','C' };
 	char needle1[] = { 'A','B','C' };
 
-	vector<char>::iterator it = find_first_of(v.begin(),v.end(),needle1,needle1+3);
-	if (it!=v.begin())
+	vector<char>::iterator it = find_first_of(v.begin(), v.end(), needle1, needle1 + 3);
+	if (it != v.begin())
 	{
 		cout << "needle1 第一个匹配到的：" << *it << endl;
 		//needle1 第一个匹配到的：A
@@ -117,10 +117,46 @@ void find_first_of_test() {
 	}
 }
 
+bool isOdd(int val) {
+	return val % 2 == 1;
+}
+
+void find_if_test() {
+	vector<int> v;
+	v.push_back(10);
+	v.push_back(30);
+	v.push_back(20);
+	v.push_back(40);
+	v.push_back(41);
+
+	vector<int>::iterator it = find_if(v.begin(), v.end(), isOdd);
+	if (it == v.end()) {
+		cout << "不存在奇数" << endl;
+	}
+	else {
+		cout << "存在奇数：" << *it << endl;
+	}
+}
+
+void find_if_not_test() {
+	int arr[] = { 1,2,3,4,5,6 };
+
+	vector<int>v(arr, arr + 6);
+
+	vector<int>::iterator it = find_if_not(v.begin(), v.end(), [](int val) {return  val % 2 == 1; });
+
+	if (it != v.end())
+	{
+		cout << "第一个偶数：" << *it << endl;
+	}
+}
+
 int main() {
 	//find_test1();
 	//find_test2();
 	//find_end_test();
-	find_first_of_test();
+	//find_first_of_test();
+	//find_if_test();
+	find_if_not_test();
 	return 1;
 }
